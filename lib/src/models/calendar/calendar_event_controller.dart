@@ -83,6 +83,13 @@ class CalendarEventsController<T> with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> addEventsFuture(Future<List<CalendarEvent<T>>> events) async {
+    final eventsList = await events;
+    addEvents(eventsList);
+    _events.sort((a, b) => a.start.compareTo(b.start));
+    notifyListeners();
+  }
+
   /// Removes an [CalendarEvent] from the list of [CalendarEvent]s.
   void removeEvent(CalendarEvent<T> event) {
     if (selectedEvent == event) {
