@@ -83,10 +83,20 @@ class CalendarEventsController<T> with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addEventsFuture(Future<List<CalendarEvent<T>>> events) async {
+  /// Used for loading events saved to cache. Called by eventStorageService.dart
+  Future<void> addEventsFuture(
+      Future<List<CalendarEvent<T>>> events, bool debug) async {
     final eventsList = await events;
     addEvents(eventsList);
     _events.sort((a, b) => a.start.compareTo(b.start));
+
+    if (debug) {
+      // loop over all events and call their toString()
+      for (var event in eventsList) {
+        debugPrint(event.toString());
+      }
+    }
+
     notifyListeners();
   }
 
