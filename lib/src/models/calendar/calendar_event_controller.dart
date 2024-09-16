@@ -92,6 +92,7 @@ class CalendarEventsController<T> with ChangeNotifier {
 
     if (debug) {
       // loop over all events and call their toString()
+      debugPrint("Printing all events that have been loaded: ");
       for (var event in eventsList) {
         debugPrint(event.toString());
       }
