@@ -108,6 +108,9 @@ class _MultiDayPageGestureDetectorState<T>
     // If the create events flag is false, return.
     if (!createEvents) return;
 
+    // If trying to create an event in the past, don't allow it.
+    if(date.isBefore(DateTime.now())) return;
+
     // Call the onEventCreate callback.
     final newEvent = scope.functions.onCreateEvent?.call(
       calculateSlotDateTimeRange(date, slotIndex),
