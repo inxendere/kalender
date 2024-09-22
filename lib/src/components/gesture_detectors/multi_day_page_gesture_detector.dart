@@ -116,7 +116,7 @@ class _MultiDayPageGestureDetectorState<T>
 
       // unfortunately date doesn't track the time, only the date iteself.
       // another check is required to let you create an event if it's the same day.
-      if(DateUtils.isSameDay(date, now)){
+      if(!DateUtils.isSameDay(date, now)){
         debugPrint('Cannot create an event in the past.');
         return;
       }
