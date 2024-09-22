@@ -113,6 +113,9 @@ class _MultiDayPageGestureDetectorState<T>
       debugPrint('Cannot create an event in the past.');
       return;
     }
+    else{
+      debugPrint('Creating new event dialog');
+    }
 
     // Call the onEventCreate callback.
     final newEvent = scope.functions.onCreateEvent?.call(
