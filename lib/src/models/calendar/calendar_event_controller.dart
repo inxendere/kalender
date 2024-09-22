@@ -85,6 +85,8 @@ class CalendarEventsController<T> with ChangeNotifier {
     for (CalendarEvent<T> event in events) {
       if (event.dateTimeRange.end.isBefore(now)) {
         event.canModify = false;
+
+        debugPrint('${event.toString()} has been modified');
       }
     }
 
@@ -96,7 +98,7 @@ class CalendarEventsController<T> with ChangeNotifier {
     List<CalendarEvent<T>> eventsModified =
         modifyEventsBeforeAddingThem(events);
 
-    _events.addAll(events);
+    _events.addAll(eventsModified);
     _events.sort((a, b) => a.start.compareTo(b.start));
     notifyListeners();
   }
