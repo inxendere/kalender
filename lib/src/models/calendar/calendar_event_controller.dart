@@ -132,7 +132,7 @@ class CalendarEventsController<T> with ChangeNotifier {
   Future<void> addEventsFutureWithoutNotification(
       Future<List<CalendarEvent<T>>> events, bool debug) async {
     final eventsList = await events;
-    addEvents(eventsList);
+    addEventsWithoutNotification(eventsList);
     _events.sort((a, b) => a.start.compareTo(b.start));
 
     if (debug) {
