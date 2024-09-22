@@ -76,8 +76,26 @@ class CalendarEventsController<T> with ChangeNotifier {
     notifyListeners();
   }
 
+  /// *
+  /// Go through each event and if it's in the past, make them unmodifiable
+  List<CalendarEvent<T>> modifyEventsBeforeAddingThem(
+      List<CalendarEvent<T>> events) {
+    DateTime now = DateTime.now();
+
+    for (CalendarEvent<T> event in events) {
+      if (event.dateTimeRange.end.isBefore(now)) {
+        event.canModify = false;
+      }
+    }
+
+    return events;
+  }
+
   /// Adds a list of [CalendarEvent]s to the list of [CalendarEvent]s.
   void addEvents(List<CalendarEvent<T>> events) {
+    List<CalendarEvent<T>> eventsModified =
+        modifyEventsBeforeAddingThem(events);
+
     _events.addAll(events);
     _events.sort((a, b) => a.start.compareTo(b.start));
     notifyListeners();
