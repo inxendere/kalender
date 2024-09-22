@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:kalender/kalender.dart';
+import 'package:kalender/src/components/event_groups/multi_day_event_group_widget.dart';
+import 'package:kalender/src/extensions.dart';
 
 /// This widget is used to detect gestures on the [MultiDayPageWidget].
 class MultiDayPageGestureDetector<T> extends StatefulWidget {
@@ -109,14 +111,15 @@ class _MultiDayPageGestureDetectorState<T>
     if (!createEvents) return;
 
     DateTime now = DateTime.now();
-
     // If trying to create an event in the past, don't allow it.
     if(date.isBefore(now)){
-      debugPrint('Cannot create an event in the past.');
-      return;
-    }
-    else{
-      debugPrint('Creating new event dialog');
+
+      // unfortunately date doesn't track the time, only the date iteself.
+      // another check is required to let you create an event if it's the same day.
+      if(!date.isSameDay(now)){
+        debugPrint('Cannot create an event in the past.');
+        return;
+      }
     }
 
     // Call the onEventCreate callback.
