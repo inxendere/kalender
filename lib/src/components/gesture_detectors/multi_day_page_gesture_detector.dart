@@ -108,8 +108,10 @@ class _MultiDayPageGestureDetectorState<T>
     // If the create events flag is false, return.
     if (!createEvents) return;
 
+    DateTime now = DateTime.now();
+
     // If trying to create an event in the past, don't allow it.
-    if(date.isBefore(DateTime.now())){
+    if(date.isBefore(now)){
       debugPrint('Cannot create an event in the past.');
       return;
     }
