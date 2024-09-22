@@ -148,6 +148,11 @@ class CalendarEventsController<T> with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Removes all [CalendarEvent]s from [_events] without notifying anything.
+  void clearEventsWithoutNotification() {
+    _events.clear();
+  }
+
   /// Updates an [CalendarEvent] in the list of [CalendarEvent]s.
   ///
   /// The event where [test] returns true will be updated.
