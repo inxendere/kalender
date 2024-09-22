@@ -103,6 +103,14 @@ class CalendarEventsController<T> with ChangeNotifier {
     notifyListeners();
   }
 
+  void addEventsWithoutNotification(List<CalendarEvent<T>> events) {
+    List<CalendarEvent<T>> eventsModified =
+        modifyEventsBeforeAddingThem(events);
+
+    _events.addAll(eventsModified);
+    _events.sort((a, b) => a.start.compareTo(b.start));
+  }
+
   /// Used for loading events saved to cache. Called by eventStorageService.dart
   Future<void> addEventsFuture(
       Future<List<CalendarEvent<T>>> events, bool debug) async {
