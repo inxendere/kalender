@@ -100,7 +100,7 @@ class CalendarEventsController<T> with ChangeNotifier {
 
     _events.addAll(eventsModified);
     _events.sort((a, b) => a.start.compareTo(b.start));
-    // notifyListeners();
+    notifyListeners();
   }
 
   /// Used for loading events saved to cache. Called by eventStorageService.dart
@@ -118,7 +118,7 @@ class CalendarEventsController<T> with ChangeNotifier {
       }
     }
 
-    // notifyListeners();
+    notifyListeners();
   }
 
   /// Removes an [CalendarEvent] from the list of [CalendarEvent]s.
