@@ -129,6 +129,22 @@ class CalendarEventsController<T> with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> addEventsFutureWithoutNotification(
+      Future<List<CalendarEvent<T>>> events, bool debug) async {
+    final eventsList = await events;
+    addEvents(eventsList);
+    _events.sort((a, b) => a.start.compareTo(b.start));
+
+    if (debug) {
+      // loop over all events and call their toString()
+      debugPrint("Adding events future WITHOUT notification");
+      debugPrint("Printing all events that have been loaded: ");
+      for (var event in eventsList) {
+        debugPrint(event.toString());
+      }
+    }
+  }
+
   /// Removes an [CalendarEvent] from the list of [CalendarEvent]s.
   void removeEvent(CalendarEvent<T> event) {
     if (selectedEvent == event) {
